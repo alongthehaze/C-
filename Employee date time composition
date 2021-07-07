@@ -1,0 +1,78 @@
+#include<iostream>
+using namespace std;
+class Date {
+private:
+    int year;
+    int month;
+    int day;
+public:
+    static int const monthsPerYear = 12;
+    Date(int y, int m, int d) {
+        year = (y > 0 && y <= 2040) ? y : 0;
+        month = (m > 0 && m <= 12) ? m : 0;
+        day = checkday(d);
+    }
+    int checkday(int d1) const {
+        static int const daysPerMonth[monthsPerYear] = { 31,28,31,30,31,31,30,31,30,31 };
+        if (d1 < daysPerMonth[month])
+            return d1;
+        else
+            return 1;
+    }
+    void showdata() {
+        string name[] = { "Jan","Feb","Mar","Apr","May","June","July","Aug","Sep","Oct","Nov","Dec" };
+        cout << year << "/" << name[month-1] << "/" << day;
+
+    }
+};
+
+class Time {
+private:
+    int hour;
+    int minute;
+    int second;
+public:
+    Time(int h, int m, int s) {
+        hour = (h > 0 && h <= 24) ? h : 0;
+        minute = (m > 0 && m <= 60) ? m : 0;
+        second = (s > 0 && s <= 3600) ? s : 0;
+    }
+    void showdata() {
+        cout << hour << ":" << minute << ":" << second;
+    }
+};
+
+class Employee {
+private:
+    string name;
+    int phoneno;
+    Date birthDate;
+    Date joinDate;
+    Time joinTime;
+public:
+    Employee(string s, int p, Date bd, Date jd, Time jt) : name(s), phoneno(p), birthDate(bd), joinDate(jd), joinTime(jt) {
+
+    }
+    void showdata(){
+        cout << "Employee name is " << name << endl;
+        cout << "Employee phone number is " << phoneno << endl;
+        cout << "Employee birth date is ";
+        birthDate.showdata();
+        cout << endl;
+        cout << "Employee joining date is ";
+        joinDate.showdata();
+        cout<< endl;
+        cout << "Employee joining time is ";
+        joinTime.showdata();
+        cout<< endl;
+    }
+};
+
+int main() {
+    Date joind(2019, 4, 10);
+    Date birthd(2000,3,3);
+    Time joint(1, 45, 25);
+    Employee e1("John", 123, birthd, joind, joint);
+    e1.showdata();
+    return 0; 
+}
