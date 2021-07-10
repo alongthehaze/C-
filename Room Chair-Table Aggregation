@@ -1,0 +1,64 @@
+#include<iostream>
+using namespace std;
+class Chair {};
+class Table{};
+
+class Room {
+protected:
+    Chair* chair_ptr[30];
+    Table* tb[7];
+    float height;
+    float width;
+public:
+    Room(float h, float w) {
+        height = h;
+        width = w;
+        for (int i = 1; i < 30; i++) {
+            chair_ptr[i] = NULL;
+        }
+        for (int i = 1; i < 6; i++) {
+            tb[i] = NULL;
+        }
+    }
+    void area() {
+        cout << "Area of Room is: " << height * width << endl;
+    }
+    void addChair(Chair* chair1, int chairnum) {
+        if (chairnum > 0 && chairnum < 30)
+            chair_ptr[chairnum] = chair1;
+    }
+    Chair* setChair(int chairno) {
+        if (chairno > 0 && chairno < 30)
+            return chair_ptr[chairno];
+        else
+            return NULL;
+    }
+    void addTb(Table* tb1, int tbno) {
+        tb[tbno] = tb1;
+    }
+    Table* setTb(int tbno) {
+        if (tbno > 0 && tbno <= 6)
+            return tb[tbno];
+        else
+            return NULL;
+    }
+
+ };
+
+
+int main() {
+    Chair ch[10];
+    Table tb[5];
+    Room r1(14.4, 13.2);
+    
+    for (int i = 1; i <= 10; i++) {
+        r1.addChair(&ch[i], i);
+        cout << "chair " << i << " = " << r1.setChair(i)<<endl;
+    }
+    for (int i = 1; i <= 5; i++) {
+        r1.addTb(&tb[i], i);
+        cout << "table " << i << " = " << r1.setTb(i) << endl;
+    }
+    r1.area();
+    return 0;
+};
